@@ -110,22 +110,27 @@ void setup()
 void loop()
 {  
   getUVdata(UVData);
-  Serial.print("UVA raw counts = 0x");        Serial.println(UVData[0], HEX);
-  Serial.print("UV Dummy raw counts = 0x");   Serial.println(UVData[1], HEX);
-  Serial.print("UVB raw counts = 0x");        Serial.println(UVData[2], HEX);
-  Serial.print("UV Comp1 raw counts = 0x");   Serial.println(UVData[3], HEX);
-  Serial.print("UV Comp2 raw counts = 0x");   Serial.println(UVData[4], HEX);
+  Serial.print("UVA raw counts = ");        Serial.println(UVData[0]);
+  Serial.print("UV Dummy raw counts = ");   Serial.println(UVData[1]);
+  Serial.print("UVB raw counts = ");        Serial.println(UVData[2]);
+  Serial.print("UV Comp1 raw counts = ");   Serial.println(UVData[3]);
+  Serial.print("UV Comp2 raw counts = ");   Serial.println(UVData[4]);
   Serial.println("  ");
 
   Serial.print("UVA intensity = "); Serial.print(((float)UVData[0])/UVASensitivity, 2); Serial.println(" microWatts/cm^2");
   Serial.print("UVB intensity = "); Serial.print(((float)UVData[2])/UVBSensitivity, 2); Serial.println(" microWatts/cm^2");
 
-  // Calculate the UV Index
+  // Calculate the UV Index, valid in open air not behind glass!
   UVAComp = (UVData[0] - UVData[1]) - ACoef*(UVData[3] - UVData[1]) - BCoef*(UVData[4] - UVData[1]);
   UVBComp = (UVData[2] - UVData[1]) - CCoef*(UVData[3] - UVData[1]) - DCoef*(UVData[4] - UVData[1]);
   UVIndex = (  (UVBComp*UVBresponsivity) +  (UVAComp*UVAresponsivity)  )/2.;
   
   Serial.print("UV Index = "); Serial.println(UVIndex, 2); 
+  if(UVIndex <= 2) Serial.println("Strength of UV Irradiance is LOW");
+  if(UVIndex > 2 && UVIndex <= 6) Serial.println("Strength of UV Irradiance is MODERATE");
+  if(UVIndex > 6 && UVIndex <= 8) Serial.println("Strength of UV Irradiance is HIGH");
+  if(UVIndex > 8 && UVIndex <= 10) Serial.println("Strength of UV Irradiance is VERY HIGH");
+  if(UVIndex > 10) Serial.println("Strength of UV Irradiance is EXTREME");
   Serial.println("  ");
 
   digitalWrite(myLed, !digitalRead(myLed));
