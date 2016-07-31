@@ -68,7 +68,7 @@ enum IT {
 // Specify VEML6075 Integration time
 uint8_t IT = IT_100;
 uint8_t ITime = 100;  // milliseconds
-int16_t UVData[5] = {0, 0, 0, 0, 0}; // UVA, Dummy, UVB, UVComp1, UVComp2
+uint16_t UVData[5] = {0, 0, 0, 0, 0}; // UVA, Dummy, UVB, UVComp1, UVComp2
 float UVASensitivity = 0.93/((float) (IT + 1)); // UVA light sensitivity increases with integration time
 float UVBSensitivity = 2.10/((float) (IT + 1)); // UVB light sensitivity increases with integration time
 float UVAComp, UVBComp, UVIndex;
@@ -160,7 +160,7 @@ uint16_t getVEML6075ID()
 
 
 
-uint16_t getUVdata(int16_t * destination)
+uint16_t getUVdata(uint16_t * destination)
 {
     for (int j = 0; j < 5; j++)
     {
@@ -176,7 +176,7 @@ uint16_t getUVdata(int16_t * destination)
         rawData[i++] = Wire.read();       // Put read results in the Rx buffer
     }     
     Wire.endTransmission();
-    destination[j] = ((int16_t) rawData[1] << 8) | rawData[0];
+    destination[j] = ((uint16_t) rawData[1] << 8) | rawData[0]; // 16-bit unsigend integer
     }
  
 }
