@@ -49,7 +49,7 @@ the  best  market-proven  reliability.
 #define UVAresponsivity  0.0011
 #define UVBresponsivity  0.00125
 
-#define VEML6075_ADDRESS          0x10 // same as VEML6075, so can't easily combine them
+#define VEML6075_ADDRESS          0x10 // same as VEML6040, so can't easily combine them
 
 #define SerialDebug true  // set to true to get Serial output for debugging
 
