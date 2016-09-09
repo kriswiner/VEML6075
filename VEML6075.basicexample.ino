@@ -4,7 +4,7 @@
  license: Beerware - Use this code however you'd like. If you 
  find it useful you can buy me a beer some time.
  
- Demonstrate basic VEML6074 functionality including parameterizing the register addresses, initializing the sensor, 
+ Demonstrate basic VEML6075 functionality including parameterizing the register addresses, initializing the sensor, 
  getting properly scaled UVA/B intensity data out. Sketch runs on the 3.3 V Teensy 3.1.
  
  From the data sheet: (http://www.vishay.com/docs/84304/veml6075.pdf)
